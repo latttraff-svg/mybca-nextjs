@@ -26,7 +26,7 @@ export default function LoginPage() {
     const formData = new FormData(event.currentTarget);
     const username = formData.get('username');
 
-    if (username === 'user' && formData.get('password') === 'password') {
+    if (username === 'ycdev2025' && formData.get('password') === '250305') {
       toast({
         title: "Login Successful",
         description: "Welcome back! Redirecting to your dashboard.",
@@ -54,11 +54,11 @@ export default function LoginPage() {
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="username">User ID</Label>
-              <Input id="username" name="username" placeholder="your.userid" required defaultValue="user" />
+              <Input id="username" name="username" placeholder="your.userid" required defaultValue="ycdev2025" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" name="password" type="password" required defaultValue="password" />
+              <Input id="password" name="password" type="password" required defaultValue="250305" />
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? <Loader2 className="animate-spin" /> : 'Log In'}
