@@ -14,6 +14,8 @@ export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [username, setUsername] = useState('ycdev2025');
+  const [password, setPassword] = useState('250305');
 
   async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -23,10 +25,7 @@ export default function LoginPage() {
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     // In a real app, you'd have validation and API calls here.
-    const formData = new FormData(event.currentTarget);
-    const username = formData.get('username');
-
-    if (username === 'ycdev2025' && formData.get('password') === '250305') {
+    if (username === 'ycdev2025' && password === '250305') {
       toast({
         title: "Login Successful",
         description: "Welcome back! Redirecting to your dashboard.",
@@ -54,11 +53,11 @@ export default function LoginPage() {
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="username">User ID</Label>
-              <Input id="username" name="username" placeholder="your.userid" required defaultValue="ycdev2025" />
+              <Input id="username" name="username" placeholder="your.userid" required value={username} onChange={(e) => setUsername(e.target.value)} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" name="password" type="password" required defaultValue="250305" />
+              <Input id="password" name="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? <Loader2 className="animate-spin" /> : 'Log In'}
