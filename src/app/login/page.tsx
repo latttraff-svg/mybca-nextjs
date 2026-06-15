@@ -1,79 +1,67 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { BcaLogo } from '@/components/bca-logo';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Loader2, Fingerprint } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
-  const [username, setUsername] = useState('ycdev2025');
-  const [password, setPassword] = useState('250305');
+  const [email, setEmail] = useState("ditawith@gmail.com");
+  const [password, setPassword] = useState("");
 
-  async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setIsLoading(true);
-
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    // In a real app, you'd have validation and API calls here.
-    if (username === 'ycdev2025' && password === '250305') {
-      toast({
-        title: "Login Successful",
-        description: "Welcome back! Redirecting to your dashboard.",
-      });
-      router.push('/dashboard');
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Login Failed",
-        description: "Invalid username or password. Please try again.",
-      });
-      setIsLoading(false);
-    }
-  }
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Alur langsung dilempar ke halaman dashboard akun yang baru kita perbaiki
+    router.push("/dashboard/accounts");
+  };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <Card className="w-full max-w-md shadow-2xl">
-        <CardHeader className="items-center text-center space-y-4">
-          <BcaLogo className="h-10 w-auto" />
-          <CardTitle className="text-2xl font-bold">Welcome to myBCA</CardTitle>
-          <CardDescription>Enter your credentials to access your account.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="username">User ID</Label>
-              <Input id="username" name="username" placeholder="your.userid" required value={username} onChange={(e) => setUsername(e.target.value)} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" name="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
-            </div>
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? <Loader2 className="animate-spin" /> : 'Log In'}
-            </Button>
-          </form>
-        </CardContent>
-        <CardFooter className="flex flex-col gap-4">
-          <Button variant="outline" className="w-full">
-            <Fingerprint className="mr-2 h-4 w-4" />
-            Log in with Biometrics
-          </Button>
-          <p className="text-xs text-muted-foreground">
-            Forgot password? | Need help?
-          </p>
-        </CardFooter>
-      </Card>
+    <div className="flex min-h-screen flex-col items-center justify-center p-6 bg-gray-50">
+      <div className="w-full max-w-sm space-y-6 bg-white p-8 rounded-xl shadow-md border border-gray-100">
+        <div className="space-y-2 text-center">
+          <h1 className="text-3xl font-bold text-blue-600">myBCA</h1>
+          <h2 className="text-xl font-semibold tracking-tight">Welcome to myBCA</h2>
+          <p className="text-sm text-muted-foreground">Enter your credentials to access your account.</p>
+        </div>
+        
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div className="space-y-1">
+            <label className="text-sm font-medium">User ID</label>
+            <input 
+              type="email" 
+              className="w-full p-2 border rounded-md" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-sm font-medium">Password</label>
+            <input 
+              type="password" 
+              className="w-full p-2 border rounded-md" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          
+          <button 
+            type="submit" 
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white p-2.5 rounded-md font-medium transition-colors"
+          >
+            Log In
+          </button>
+        </form>
+
+        <button className="w-full border border-gray-300 p-2 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors">
+          Log in with Biometrics
+        </button>
+
+        <div className="text-center text-xs text-gray-500">
+          <span className="hover:underline cursor-pointer">Forgot password?</span> | <span className="hover:underline cursor-pointer">Need help?</span>
+        </div>
+      </div>
     </div>
   );
 }
