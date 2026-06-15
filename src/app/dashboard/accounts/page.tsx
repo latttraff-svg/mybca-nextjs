@@ -28,7 +28,12 @@ const allTransactions = [
 ];
 
 export default function AccountsPage() {
-  const formatCurrency = (amount: number) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(amount);
+  const formatCurrency = (amount: number) => 
+    new Intl.NumberFormat("id-ID", { 
+      style: "currency", 
+      currency: "IDR", 
+      minimumFractionDigits: 0 
+    }).format(amount);
 
   return (
     <div className="space-y-6">
